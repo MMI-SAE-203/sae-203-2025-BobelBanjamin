@@ -1,0 +1,29 @@
+---
+import { getParticipant } from "../../../backend.mjs"; // Récupération d’un invité
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+const invite = await getParticipant(id);
+---
+
+<Layout>
+<section class="max-w-6xl mx-auto p-6 bg-[#312345] rounded-lg shadow-lg text-white">
+    <h1 class="text-3xl font-bold text-center mb-6">{invite.nom}</h1>
+
+    <!-- ✅ Section principale en grille : Photo à gauche / Infos à droite -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- 📸 Photo de l'invité (Gauche) -->
+        <div class="flex flex-col items-center md:items-start">
+            <img class="w-full max-w-xs md:max-w-sm rounded-lg shadow-md" 
+                 src={invite.imgUrl} 
+                 alt={`Photo de ${invite.nom}`} />
+        </div>
+
+        <!-- 🎭 Infos sur l'invité (Droite) -->
+        <div class="text-left space-y-2">
+            <p class="text-gray-300"><strong>🎭 Rôle :</strong> {invite.role || "Non précisé"}</p>
+            <p class="text-gray-300"><strong>📅 Année de naissance :</strong> {invite.annee_naissance || "Non renseignée"}</p>
+            <p class="text-gray-300"><strong>🏆 Récompenses :</strong> {invite.recompenses || "Aucune"}</p>
+        </div>
+    </div

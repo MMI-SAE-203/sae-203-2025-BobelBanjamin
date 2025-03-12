@@ -1,0 +1,25 @@
+---
+import { allInvites } from "../../../backend.mjs"; // Import des invités
+import InviteCard from "../../components/InviteCard.astro";
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const invites = await allInvites();
+---
+
+<Layout>
+<section class="py-12 bg-[#190A35] text-white">
+    <h1 class="text-center text-4xl font-bold mb-10">Nos Invités</h1>
+
+    <!-- Grille Responsive -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 max-w-6xl mx-auto">
+        {invites.length > 0 ? (
+            invites.map((invite) => (
+                <InviteCard {...invite} />
+            ))
+        ) : (
+            <p class="text-center text-gray-400">Aucun invité pour le moment.</p>
+        )}
+    </div>
+</section>
+</Layout>
