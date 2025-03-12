@@ -1,14 +1,67 @@
 ---
+import Logo from '../assets/icons/Logo.svg'
+import Button from '../components/Button.astro';
+const currentPath = Astro.url.pathname;
+import '../styles/global.css';
 ---
-<header class="bg-blue-500 text-white p-4">
-    <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">My Website</h1>
-        <nav>
-            <ul class="flex space-x-4">
-                <li><a href="/" class="hover:underline">Home</a></li>
-                <li><a href="/about" class="hover:underline">About</a></li>
-                <li><a href="/contact" class="hover:underline">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+<header class="flex items-center justify-between px-4 gap-8 h-20" style="background-color: #111e4b;">
+    <a href="/">
+        <img src="../assets/icons/Logo.svg" alt="Logo" class="h-10" />
+    </a>
+    <button
+        id="menu-btn"
+        class="group relative z-10 flex h-3 w-6 flex-col justify-between lg:hidden *:block *:ease *:h-0.5 *:w-full *:transform *:rounded-full *:bg-white *:transition *:duration-300"
+        aria-label="Menu"
+        aria-controls="menu"
+        aria-expanded="false"
+    >
+        <span class="group-aria-expanded:translate-y-[5px] group-aria-expanded:rotate-45"></span>
+        <span class="group-aria-expanded:-translate-y-[5px] group-aria-expanded:-rotate-45"></span>
+    </button>
+    <nav
+        id="menu"
+        class="flex-1 px-6 py-12 flex justify-between mt-20 flex-col fixed z-10 inset-0 bg-[#190A35] visible opacity-100 max-lg:aria-hidden:invisible max-lg:aria-hidden:opacity-0 lg:mt-0 lg:flex-row lg:static lg:bg-transparent lg:py-6 lg:visible lg:opacity-100"
+        aria-hidden="true"
+    >
+        <ul class="flex flex-col gap-4 lg:flex-row">
+            <li>
+                <a class={`block p-4 rounded-lg text-white font-bold ${currentPath === '/properties' ? 'text-white font-bold max-lg:bg-indigo-100 max-lg:rounded-lg' : ''}`} 
+                href="/properties">Rent</a>
+            </li>
+            <li>
+                <a class="block p-4 rounded-lg text-white font-bold" href="/prgrammation">Programmation</a>
+            </li>
+            <li>
+                <a class="block p-4 rounded-lg text-white font-bold" href="/activites">Activites</a>
+            </li>
+            <li>
+                <a class="block p-4 rounded-lg text-white font-bold" href="/invite">Invite</a>
+            </li>
+            <li>
+                <a class="block p-4 rounded-lg text-white font-bold" href="/film">Film</a>
+            </li>
+        </ul>
+        <div class="flex items-center justify-center gap-4 px-4">
+            <Button variant="dark" url="/signup" text="Billeterie" />
+        </div>
+    </nav>
 </header>
+
+<script>
+  // On cible les éléments à modifier
+  const toggle = document.querySelector("#menu-btn");
+  const nav = document.querySelector("#menu");
+  const page = document.body;
+
+  // Vérifier si les éléments existent avant d'ajouter l'événement
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.ariaExpanded === "true";
+      const isClosed = !isOpen;
+      // Mise à jour des attributs ARIA pour accessibilité
+      toggle.ariaExpanded = String(isClosed);
+      nav.ariaHidden = String(isOpen);
+      page.classList.toggle("noscroll", isClosed);
+    });
+  }
+</script>
