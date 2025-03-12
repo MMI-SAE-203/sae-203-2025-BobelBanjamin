@@ -5,27 +5,29 @@ console.log("📌 Activités récupérées :", activites);
 ---
 
 <section class="py-12 bg-[#0A1A4B] text-white flex flex-col items-center">
-    <h2 class="text-center text-4xl font-bold mb-6">Nos Activités</h2>
 
-    <!-- Grille responsive pour afficher les activités au centre -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 w-full max-w-6xl mx-auto">
-        {activites.length > 0 ? (
-            activites.map((activite) => (
-                <div class="bg-[#1A1530] rounded-lg shadow-lg overflow-hidden text-center p-4">
-                    <div class="w-full h-56 overflow-hidden rounded-lg">
-                        <img src={activite.imgUrl} alt={activite.titre} class="w-full h-full object-cover rounded-lg" />
+
+    <div class="w-full max-w-6xl mx-auto flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {activites.length > 0 ? (
+                activites.map((activite) => (
+                    <div class="bg-[#312345] rounded-lg shadow-lg overflow-hidden text-center p-4">
+                        <div class="w-full h-56 overflow-hidden rounded-lg">
+                            <img src={activite.imgUrl} alt={activite.titre} class="w-full h-full object-cover" />
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-bold">{activite.titre}</h3>
+                            <p class="text-sm text-gray-400">{activite.type}</p>
+                            <p class="text-sm text-gray-400">📅 {activite.date_act}</p>
+                            <p class="text-sm text-gray-400">📍 {activite.lieu}</p>
+                        </div>
                     </div>
-                    <div class="mt-4">
-                        <h3 class="text-lg font-bold">{activite.titre}</h3>
-                        <p class="text-sm text-gray-400">{activite.type}</p>
-                        <p class="text-sm text-gray-400">📅 {activite.date_act}</p>
-                        <p class="text-sm text-gray-400">📍 {activite.lieu}</p>
-                    </div>
-                </div>
-            ))
-        ) : (
-            <p class="text-center text-gray-400">Aucune activité disponible.</p>
-        )}
+                ))
+            ) : (
+                <p class="text-center text-gray-400">Aucune activité disponible.</p>
+            )}
+        </div>
     </div>
 </section>
+
 

@@ -5,13 +5,12 @@ console.log("📌 Invités récupérés :", invites);
 ---
 
 <section class="py-12 bg-[#0A1A4B] text-white">
-    <h2 class="text-center text-4xl font-bold mb-6">Nos Invités</h2>
 
     <!-- Grille responsive -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 w-full max-w-6xl mx-auto">
         {invites.length > 0 ? (
             invites.map((invite) => (
-                <div class="bg-[#1A1530] rounded-lg shadow-lg overflow-hidden text-center p-4">
+                <div class="bg-[#312345] rounded-lg shadow-lg overflow-hidden text-center p-4">
                     <div class="w-full h-56 overflow-hidden">
                         <img src={invite.imgUrl} alt={invite.nom} class="w-full h-full object-cover rounded-lg" />
                     </div>

@@ -9,7 +9,6 @@ import Invite from "../components/Listeinvit.astro";
 import ListeActivites from "../components/Listeactiv.astro";
 
 
-console.log("✅ Cardfilm est bien chargé !");
 ---
 
 <Layout>
@@ -30,7 +29,7 @@ console.log("✅ Cardfilm est bien chargé !");
             <Image src={titre} alt="titre" class="mx-auto" style="max-width"></Image>
     
             <!-- Bloc "Ne Pas Ratez" -->
-            <div class="mt-10 bg-[#1A1530] p-6 rounded-xl max-w-2xl mx-auto relative">
+            <div class="mt-10 bg-[#312345] p-6 rounded-xl max-w-2xl mx-auto relative">
                 <span class="bg-pink-500 text-white px-4 py-2 rounded-lg font-bold absolute -top-5 left-6">
                     NE PAS RATEZ
                 </span>
@@ -41,7 +40,7 @@ console.log("✅ Cardfilm est bien chargé !");
             </div>
     
             <!-- Section calendrier -->
-            <div class="mt-12 bg-[#1A1530] p-6 rounded-xl max-w-2xl mx-auto">
+            <div class="mt-12 bg-[#312345] p-6 rounded-xl max-w-2xl mx-auto">
                 <h2 class="text-2xl font-bold">JANVIER 2025</h2>
     
                 <!-- Ligne temporelle -->
@@ -78,24 +77,28 @@ console.log("✅ Cardfilm est bien chargé !");
     <!-- Séparation fluide avec un dégradé -->
     <div class="absolute bottom-0 left-0 w-full h-16 bg-[#0A1A4B]"></div>
 
-    <h2 class="text-5xl font-bold text-center text-pink-400 tracking-widest" style="font-family: 'Monoton', cursive;">PROGRAMMATION</h2>
+    <h2 class="text-5xl text-[#ff4e78] font-bold text-center t tracking-widest" style="font-family: 'Monoton', cursive;">PROGRAMMATION</h2>
     <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Monoton&display=swap" rel="stylesheet">
 
     </Film>
     <Film/>
    
-    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+    <a href="/programmation" class="mb-15 block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
         Voir Plus
     </a>
     
+    <h2 class="text-5xl font-bold text-center text-[#cafb12] tracking-widest" style="font-family: 'Monoton', cursive;">Invité</h2>
+
     <Invite/>
     
-    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+    <a href="#" class="mb-15 block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
         Voir Plus
     </a>
 
+    <h2 class="text-5xl font-bold text-center text-[#306ef9] tracking-widest" style="font-family: 'Monoton', cursive;">Activité</h2>
+
     <ListeActivites />
-    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+    <a href="#" class="mb-25 block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
         Voir Plus
     </a>
     
