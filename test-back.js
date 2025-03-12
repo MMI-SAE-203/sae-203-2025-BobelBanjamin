@@ -1,10 +1,11 @@
 console.log("🚀 Début des tests PocketBase...\n");
 
 import {
-    allFilms, allActivites, allParticipants,
+    allFilms, allActivites, allInvites,
     getFilm, getActivite, getParticipant,
     getActivitesByAnimateurId, getActivitesByAnimateurNom,
-    updateItem
+    updateItem,
+    allInvites
 } from './backend.mjs';
 
 const testAllFunctions = async () => {
@@ -18,7 +19,7 @@ const testAllFunctions = async () => {
         console.log("🎭 Activités trouvées:", activites.length > 0 ? activites : "Aucune activité trouvée");
 
         console.log("\n🟢 Test: Récupération de tous les participants...");
-        const participants = await allParticipants();
+        const participants = await allInvites();
         console.log("🎭 Participants trouvés:", participants.length > 0 ? participants : "Aucun participant trouvé");
 
         if (films.length > 0) {

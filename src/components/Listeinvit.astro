@@ -1,0 +1,28 @@
+---
+import { allInvites } from "../../backend.mjs"; // Import des invités
+const invites = await allInvites(); // Récupération des invités
+console.log("📌 Invités récupérés :", invites);
+---
+
+<section class="py-12 bg-[#0A1A4B] text-white">
+    <h2 class="text-center text-4xl font-bold mb-6">Nos Invités</h2>
+
+    <!-- Grille responsive -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 w-full max-w-6xl mx-auto">
+        {invites.length > 0 ? (
+            invites.map((invite) => (
+                <div class="bg-[#1A1530] rounded-lg shadow-lg overflow-hidden text-center p-4">
+                    <div class="w-full h-56 overflow-hidden">
+                        <img src={invite.imgUrl} alt={invite.nom} class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="mt-4">
+                        <h3 class="text-lg font-bold">{invite.nom} {invite.prenom}</h3>
+                        <p class="text-sm text-gray-400">{invite.role}</p>
+                    </div>
+                </div>
+            ))
+        ) : (
+            <p class="text-center text-gray-400">Aucun invité disponible.</p>
+        )}
+    </div>
+</section>

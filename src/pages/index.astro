@@ -4,7 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import { Image } from 'astro:assets';
 import titre from "../assets/img/titre.webp";
 import '../styles/global.css';
-import Film from "../components/Cardfilm.astro";
+import Film from "../components/Carroussellefilm.astro";
+import Invite from "../components/Listeinvit.astro";
+import ListeActivites from "../components/Listeactiv.astro";
+
+
+console.log("✅ Cardfilm est bien chargé !");
 ---
 
 <Layout>
@@ -77,11 +82,26 @@ import Film from "../components/Cardfilm.astro";
     <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Monoton&display=swap" rel="stylesheet">
 
     </Film>
+    <Film/>
+   
+    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+        Voir Plus
+    </a>
+    
+    <Invite/>
+    
+    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+        Voir Plus
+    </a>
 
-
+    <ListeActivites />
+    <a href="#" class="block mx-auto w-36 h-12 bg-gradient-to-l from-[#ff4e78] via-[#316ff9] to-[#306ef9] rounded-2xl shadow-lg text-white text-lg font-bold font-['Anybody'] capitalize tracking-wide flex items-center justify-center transition-transform duration-300 hover:scale-105">
+        Voir Plus
+    </a>
+    
 </section>
 
-<Film/>
+
         
       
 

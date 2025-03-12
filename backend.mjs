@@ -24,17 +24,37 @@ export async function allFilms() {
 export async function allActivites() {
     let activites = await pb.collection('activites').getFullList({ sort: '-date_act' });
 
+    activites = activites.map((activite) => {
+        if (activite.photo) {
+            activite.imgUrl = pb.files.getURL(activite, activite.photo); // ✅ Génère une URL correcte
+        } else {
+            activite.imgUrl = "/default-activity.png"; // Image par défaut si aucune photo
+        }
+        return activite;
+    });
+
     return activites;
 }
+
 
 /**
  * 📌 Retourne la liste de tous les acteurs / réalisateurs triés par ordre alphabétique
  */
-export async function allParticipants() {
-    let participants = await pb.collection('invite').getFullList({ sort: 'nom' });
+export async function allInvites() {
+    let invites = await pb.collection('invite').getFullList({ sort: 'nom' });
 
-    return participants;
+    invites = invites.map((invite) => {
+        if (invite.photo) {
+            invite.imgUrl = pb.files.getURL(invite, invite.photo); // ✅ Génère une URL correcte
+        } else {
+            invite.imgUrl = "/default-avatar.png"; // Image par défaut si aucune photo
+        }
+        return invite;
+    });
+
+    return invites;
 }
+
 
 /**
  * 📌 Retourne les infos d'un film en donnant son ID

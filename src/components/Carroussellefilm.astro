@@ -1,0 +1,93 @@
+---
+import { allFilms } from "../../backend.mjs"; // Import des films depuis PocketBase
+const films = await allFilms(); // Récupération des films
+console.log("🎬 Films récupérés :", films);
+---
+
+<section class="py-12 bg-[#0A1A4B] text-white relative">
+    <h2 class="text-center text-4xl font-bold mb-6">Films en Programmation</h2>
+
+    <div class="relative w-full max-w-5xl mx-auto overflow-hidden">
+        <!-- Carrousel des films -->
+        <div id="carousel-film" class="flex transition-transform duration-500 ease-in-out whitespace-nowrap space-x-6">
+            {films.length > 0 ? (
+                films.map((film) => (
+                    <div class="w-[80%] md:w-[50%] lg:w-[33%] flex-shrink-0 bg-[#1A1530] rounded-xl shadow-lg overflow-hidden">
+                        <div class="relative w-full h-80">
+                            <img src={film.imgUrl} alt={film.titre_film} class="w-full h-full object-cover rounded-t-xl" />
+                        </div>
+                        <div class="p-4 text-center">
+                            <h3 class="text-lg font-bold">{film.titre_film}</h3>
+                            <p class="text-sm text-gray-400">📅 {film.sortie}</p>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p class="text-center text-gray-400">Aucun film disponible.</p>
+            )}
+        </div>
+
+        <!-- Boutons de navigation -->
+        <button id="prevFilm" class="absolute top-1/2 left-4 transform -translate-y-1/2 p-3 bg-white text-black rounded-full shadow-md hover:opacity-80">
+            ◀
+        </button>
+        <button id="nextFilm" class="absolute top-1/2 right-4 transform -translate-y-1/2 p-3 bg-white text-black rounded-full shadow-md hover:opacity-80">
+            ▶
+        </button>
+    </div>
+</section>
+
+<script client:load>
+    console.log("✅ JavaScript chargé après Astro !");
+  
+    setTimeout(() => {
+        const nextBtn = document.getElementById("nextFilm");
+        const prevBtn = document.getElementById("prevFilm");
+        const carousel = document.getElementById("carousel-film");
+  
+        console.log("🔍 Vérification des éléments :", { nextBtn, prevBtn, carousel });
+  
+        if (!nextBtn || !prevBtn || !carousel) {
+            console.error("❌ Erreur : Les éléments du carrousel sont introuvables !");
+            return;
+        }
+  
+        let currentIndex = 0;
+        const slides = Array.from(carousel.children);
+        const totalSlides = slides.length;
+        const slideWidth = slides[0].offsetWidth; // Récupère la largeur d'une carte
+  
+        function updateCarousel() {
+            const offset = -currentIndex * slideWidth; // Déplacement basé sur la largeur d'une carte
+            carousel.style.transform = `translateX(${offset}px)`;
+            
+            // 🔹 Désactiver les boutons si aux extrémités
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === totalSlides - 1;
+  
+            // 🔹 Modifier l'apparence des boutons désactivés
+            prevBtn.classList.toggle("opacity-50", currentIndex === 0);
+            nextBtn.classList.toggle("opacity-50", currentIndex === totalSlides - 1);
+        }
+  
+        nextBtn.addEventListener("click", () => {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+  
+        prevBtn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+  
+        // 🔹 Appel initial pour désactiver les boutons au début
+        updateCarousel();
+  
+        console.log("✅ Carrousel opérationnel !");
+    }, 500);
+  </script>
+  
