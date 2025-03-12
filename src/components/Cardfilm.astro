@@ -1,0 +1,60 @@
+---
+import { allFilms } from "../../backend.mjs"; 
+
+const films = await allFilms();
+---
+
+<section class="py-12 bg-[#0A1A4B] text-white">
+    <h2 class="text-center text-4xl font-bold mb-6">Films en Programmation</h2>
+
+    <p class="text-center text-white">Test affichage HTML !</p>
+
+    {films.length > 0 ? (
+        <p class="text-center text-green-400">Films trouvés : {films.length}</p>
+    ) : (
+        <p class="text-center text-red-400">Aucun film trouvé.</p>
+    )}
+</section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("✅ JavaScript chargé !");
+  
+        const nextBtn = document.getElementById("nextBtn");
+        const prevBtn = document.getElementById("prevBtn");
+        const carousel = document.getElementById("carousel-container");
+  
+        console.log("🔍 Vérification des éléments :", { nextBtn, prevBtn, carousel });
+  
+        if (!nextBtn || !prevBtn || !carousel) {
+            console.error("❌ Erreur : Les éléments du carrousel sont introuvables !");
+            return;
+        }
+  
+        let currentIndex = 0;
+        const totalSlides = carousel.children.length;
+  
+        nextBtn.addEventListener("click", () => {
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+  
+        prevBtn.addEventListener("click", () => {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+  
+        function updateCarousel() {
+            if (!carousel) return;
+            const offset = -currentIndex * 100;
+            carousel.style.transform = `translateX(${offset}%)`;
+        }
+  
+        console.log("✅ Les événements ont bien été ajoutés !");
+    });
+  </script>
+  

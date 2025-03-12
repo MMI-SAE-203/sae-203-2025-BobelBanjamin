@@ -6,7 +6,7 @@ import '../styles/global.css';
 ---
 <header class="flex items-center justify-between px-4 gap-8 h-20" style="background-color: #111e4b;">
     <a href="/">
-        <img src="../assets/icons/Logo.svg" alt="Logo" class="h-10" />
+        <Logo/>
     </a>
     <button
         id="menu-btn"
@@ -25,21 +25,25 @@ import '../styles/global.css';
     >
         <ul class="flex flex-col gap-4 lg:flex-row">
             <li>
-                <a class={`block p-4 rounded-lg text-white font-bold ${currentPath === '/properties' ? 'text-white font-bold max-lg:bg-indigo-100 max-lg:rounded-lg' : ''}`} 
+                <a class={`block p-4 rounded-lg text-white font-bold max-lg:text-2xl ${currentPath === '/properties' ? 'text-white font-bold max-lg:bg-indigo-100 max-lg:rounded-lg' : ''}`} 
                 href="/properties">Rent</a>
+                <span class="block w-full h-1 bg-gradient-to-r  from-pink-500 to-blue-500 max-lg:block hidden"></span>
             </li>
             <li>
-                <a class="block p-4 rounded-lg text-white font-bold" href="/prgrammation">Programmation</a>
+                <a class="block p-4 rounded-lg text-white font-bold max-lg:text-2xl" href="/prgrammation">Programmation</a>
+                <span class="block w-full h-1 bg-gradient-to-r  from-pink-500 to-blue-500 max-lg:block hidden"></span>
             </li>
             <li>
-                <a class="block p-4 rounded-lg text-white font-bold" href="/activites">Activites</a>
+                <a class="block p-4 rounded-lg text-white font-bold max-lg:text-2xl" href="/activites">Activites</a>
+                <span class="block w-full h-1 bg-gradient-to-r from-pink-500 to-blue-500 max-lg:block hidden"></span>
             </li>
             <li>
-                <a class="block p-4 rounded-lg text-white font-bold" href="/invite">Invite</a>
+                <a class="block p-4 rounded-lg text-white font-bold max-lg:text-2xl" href="/invite">Invite</a>
+                <span class="block w-full h-1 bg-gradient-to-r  from-pink-500 to-blue-500 max-lg:block hidden"></span>
             </li>
             <li>
-                <a class="block p-4 rounded-lg text-white font-bold" href="/film">Film</a>
-            </li>
+                <a class="block p-4 rounded-lg text-white font-bold max-lg:text-2xl" href="/film">Film</a>
+                <span class="block w-full h-1 bg-gradient-to-r  from-pink-500 to-blue-500 max-lg:block hidden"></span>
         </ul>
         <div class="flex items-center justify-center gap-4 px-4">
             <Button variant="dark" url="/signup" text="Billeterie" />

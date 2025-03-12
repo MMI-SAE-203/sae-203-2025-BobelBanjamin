@@ -1,9 +1,91 @@
 ---
 
 import Layout from '../layouts/Layout.astro';
-
+import { Image } from 'astro:assets';
+import titre from "../assets/img/titre.webp";
+import '../styles/global.css';
+import Film from "../components/Cardfilm.astro";
 ---
 
 <Layout>
+    
+    <section class="relative bg-[#0A1A4B] text-white py-20 px-6">
+        <!-- Arrière-plan avec points -->
+        <div class="absolute inset-0 bg-dot-pattern opacity-30"></div>
+
+        <div class="absolute inset-0">
+            <div class="absolute top-10 left-10 w-32 h-32 bg-white opacity-30 blur-3xl rounded-full"></div>
+            <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-pink-500 opacity-50 blur-3xl rounded-full"></div>
+            <div class="absolute bottom-10 right-10 w-40 h-40 bg-yellow-400 opacity-20 blur-3xl rounded-full"></div>
+        </div>
+    
+        <!-- Contenu principal -->
+        <div class="relative text-center">
+            <!-- Logo -->
+            <Image src={titre} alt="titre" class="mx-auto" style="max-width"></Image>
+    
+            <!-- Bloc "Ne Pas Ratez" -->
+            <div class="mt-10 bg-[#1A1530] p-6 rounded-xl max-w-2xl mx-auto relative">
+                <span class="bg-pink-500 text-white px-4 py-2 rounded-lg font-bold absolute -top-5 left-6">
+                    NE PAS RATEZ
+                </span>
+                <p class="text-lg mt-6">
+                    Découvrez le Lionimation Festival, le tout nouveau rendez-vous de l’animation à Belfort !
+                    Ne manquez surtout pas cette première édition de votre festival audiovisuel favori !
+                </p>
+            </div>
+    
+            <!-- Section calendrier -->
+            <div class="mt-12 bg-[#1A1530] p-6 rounded-xl max-w-2xl mx-auto">
+                <h2 class="text-2xl font-bold">JANVIER 2025</h2>
+    
+                <!-- Ligne temporelle -->
+                <div class="flex items-center justify-center mt-4 relative">
+                    <!-- Ligne pointillée -->
+                    <div class="absolute w-full border-t-2 border-dotted border-white top-1/2 transform -translate-y-1/2"></div>
+    
+                    <!-- Dates -->
+                    <div class="relative flex gap-4">
+                        <div class="w-12 h-12 flex items-center justify-center text-lg font-bold rounded-full bg-pink-500 text-white">21</div>
+                        <div class="w-12 h-12 flex items-center justify-center text-lg font-bold rounded-full bg-blue-500 text-white">22</div>
+                        <div class="w-12 h-12 flex items-center justify-center text-lg font-bold rounded-full bg-green-400 text-white">23</div>
+                        <div class="w-12 h-12 flex items-center justify-center text-lg font-bold rounded-full bg-pink-500 text-white">24</div>
+                        <div class="w-12 h-12 flex items-center justify-center text-lg font-bold rounded-full bg-blue-500 text-white">25</div>
+                    </div>
+                </div>
+    
+                <!-- Localisation -->
+                <div class="mt-6 flex items-center justify-center gap-2 text-lg text-white">
+                    <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C8.13 2 5 5.13 5 9c0 4.42 7 13 7 13s7-8.58 7-13c0-3.87-3.13-7-7-7zM12 11a2 2 0 110-4 2 2 0 010 4z" />
+                    </svg>
+                    <span class="font-bold">BELFORT, FRANCHE-COMTÉ</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section avec fond pointillé + séparation fluide -->
+<section class="relative bg-[#0A1A4B] text-white py-20 px-6">
+    <!-- Arrière-plan pointillé -->
+    <div class="absolute inset-0 bg-dot-pattern opacity-30"></div>
+
+    <!-- Séparation fluide avec un dégradé -->
+    <div class="absolute bottom-0 left-0 w-full h-16 bg-[#0A1A4B]"></div>
+
+    <h2 class="text-5xl font-bold text-center text-pink-400 tracking-widest" style="font-family: 'Monoton', cursive;">PROGRAMMATION</h2>
+    <link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Monoton&display=swap" rel="stylesheet">
+
+    </Film>
+
+
+</section>
+
+<Film/>
+        
+      
+
+
 	
 </Layout>
+

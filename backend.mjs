@@ -10,7 +10,7 @@ export async function allFilms() {
 
     films = films.map((film) => {
         if (film.affiche) {
-            film.imgUrl = pb.files.getUrl(film, film.affiche);
+            film.imgUrl = pb.files.getURL(film, film.affiche); // ✅ Correction ici
         }
         return film;
     });
@@ -42,7 +42,7 @@ export async function allParticipants() {
 export async function getFilm(id) {
     let film = await pb.collection('film').getOne(id);
     if (film.affiche) {
-        film.imgUrl = pb.files.getUrl(film, film.affiche);
+        film.imgUrl = pb.files.getURL(film, film.affiche); // ✅ Correction ici
     }
     return film;
 }
@@ -110,5 +110,3 @@ export async function updateItem(collection, id, data) {
 
     return result;
 }
-
-
