@@ -1,0 +1,17 @@
+---
+const { date, events, color, image } = Astro.props;
+---
+
+<div class="bg-[#312345] rounded-3xl p-8 text-white shadow-lg">
+    <h2 class={`text-2xl font-bold ${color} mb-4`}>{date}</h2>
+    <p class="text-sm leading-relaxed">
+        {events.map((event) => (
+            <span>
+                <strong>{event.time} :</strong> {event.description} <br />
+            </span>
+        ))}
+    </p>
+    <div class="flex justify-center mt-4">
+        <img src={image} alt="Image du programme" class="w-32 h-32 object-cover rounded-lg" />
+    </div>
+</div>

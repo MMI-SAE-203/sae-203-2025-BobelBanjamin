@@ -1,0 +1,50 @@
+---
+import { allFilms } from "../../../backend.mjs";
+import FilmCard from "../../components/FilmCard.astro";
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css';
+
+const films = await allFilms();
+const uniqueGenres = [...new Set(films.flatMap((film) => film.genre))];
+---
+
+<Layout>
+<section class="py-12 bg-[#190A35] text-white">
+    <h1 class="text-center text-4xl font-bold mb-10">Tous les Films</h1>
+
+    <!-- Barre de filtrage -->
+    <div class="flex justify-center mb-6">
+        <label for="genreFilter" class="sr-only">Filtrer par Genre</label>
+        <select id="genreFilter" class="p-3 rounded bg-gray-800 text-white">
+            <option value="">Tous les genres</option>
+            {uniqueGenres.map((genre) => (
+                <option value={genre}>{genre}</option>
+            ))}
+        </select>
+    </div>
+
+    <!-- Grille des films -->
+    <div id="filmList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6 max-w-6xl mx-auto">
+        {films.length > 0 ? (
+            films.map((film) => (
+                <FilmCard {...film} />
+            ))
+        ) : (
+            <p class="text-center text-gray-400">Aucun film disponible.</p>
+        )}
+    </div>
+</section>
+
+<!-- JavaScript pour filtrer les films -->
+<script>
+    document.getElementById("genreFilter").addEventListener("change", function() {
+        const selectedGenre = this.value;
+        const filmCards = document.querySelectorAll("#filmList > a");
+
+        filmCards.forEach((card) => {
+            const genres = card.getAttribute("data-genres").split(",");
+            card.style.display = selectedGenre === "" || genres.includes(selectedGenre) ? "block" : "none";
+        });
+    });
+</script>
+</Layout>

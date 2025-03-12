@@ -2,10 +2,9 @@ console.log("🚀 Début des tests PocketBase...\n");
 
 import {
     allFilms, allActivites, allInvites,
-    getFilm, getActivite, getParticipant,
-    getActivitesByAnimateurId, getActivitesByAnimateurNom,
-    updateItem,
-    allInvites
+    getFilm, getActivite, getInvite,
+    getActivitesByInviteId, getActivitesByInviteNom,
+    updateItem, pb 
 } from './backend.mjs';
 
 const testAllFunctions = async () => {
@@ -18,9 +17,9 @@ const testAllFunctions = async () => {
         const activites = await allActivites();
         console.log("🎭 Activités trouvées:", activites.length > 0 ? activites : "Aucune activité trouvée");
 
-        console.log("\n🟢 Test: Récupération de tous les participants...");
-        const participants = await allInvites();
-        console.log("🎭 Participants trouvés:", participants.length > 0 ? participants : "Aucun participant trouvé");
+        console.log("\n🟢 Test: Récupération de tous les invités...");
+        const invites = await allInvites();
+        console.log("🎭 Invités trouvés:", invites.length > 0 ? invites : "Aucun invité trouvé");
 
         if (films.length > 0) {
             console.log("\n🟢 Test: Récupération d’un film par ID...");
@@ -34,26 +33,26 @@ const testAllFunctions = async () => {
             console.log("🎭 Activité récupérée:", activite);
         }
 
-        if (participants.length > 0) {
-            console.log("\n🟢 Test: Récupération d’un participant par ID...");
-            const participant = await getParticipant(participants[0].id);
-            console.log("🎭 Participant récupéré:", participant);
+        if (invites.length > 0) {
+            console.log("\n🟢 Test: Récupération d’un invité par ID...");
+            const invite = await getInvite(invites[0].id);
+            console.log("🎭 Invité récupéré:", invite);
         }
 
-        if (participants.length > 0) {
-            console.log("\n🟢 Test: Récupération des activités d'un animateur par ID...");
-            const activitesAnimateur = await getActivitesByAnimateurId(participants[0].id);
-            console.log("🎭 Activités de l'animateur:", activitesAnimateur.length > 0 ? activitesAnimateur : "Aucune activité trouvée");
+        if (invites.length > 0) {
+            console.log("\n🟢 Test: Récupération des activités d'un invité par ID...");
+            const activitesInvite = await getActivitesByInviteId(invites[0].id);
+            console.log("🎭 Activités de l'invité:", activitesInvite.length > 0 ? activitesInvite : "Aucune activité trouvée");
         }
 
-        if (participants.length > 0) {
-            console.log("\n🟢 Test: Récupération des activités d'un animateur par Nom...");
-            const activitesAnimateurNom = await getActivitesByAnimateurNom(participants[0].nom);
-            console.log("🎭 Activités de l'animateur par nom:", activitesAnimateurNom.length > 0 ? activitesAnimateurNom : "Aucune activité trouvée");
+        if (invites.length > 0) {
+            console.log("\n🟢 Test: Récupération des activités d'un invité par Nom...");
+            const activitesInviteNom = await getActivitesByInviteNom(invites[0].nom);
+            console.log("🎭 Activités de l'invité par nom:", activitesInviteNom.length > 0 ? activitesInviteNom : "Aucune activité trouvée");
         }
 
         console.log("\n🟢 Test: Ajout d’un nouveau film...");
-        const newFilm = await updateItem("film", null, { titre_film: "Film Test", sortie: "2025-06-15" });
+        const newFilm = await updateItem("film", null, { titre_film: "Film Test", sortie: "2025-06-15", genre: ["Animation"] });
         console.log("✅ Nouveau film ajouté:", newFilm);
 
         console.log("\n🟢 Test: Mise à jour du film...");
@@ -61,7 +60,7 @@ const testAllFunctions = async () => {
         console.log("✅ Film mis à jour:", updatedFilm);
 
         console.log("\n🟢 Test: Suppression du film...");
-        await updateItem("film", newFilm.id, null);
+        await pb.collection("film").delete(newFilm.id); 
         console.log("✅ Film supprimé.");
 
         console.log("\n✅✅✅ Tous les tests ont réussi !");

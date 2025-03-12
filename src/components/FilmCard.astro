@@ -1,0 +1,28 @@
+---
+const { ...film } = Astro.props;
+
+// Debugging (optionnel)
+console.log("📌 Film chargé :", film);
+---
+
+<a href={`/film/${film.id}`} 
+    data-genres={film.genre ? film.genre.join(",") : ""}
+    class="block bg-[#312345] rounded-xl shadow-lg overflow-hidden text-white p-6 hover:scale-105 transition-transform duration-300 focus:outline focus:ring-2 focus:ring-indigo-400"
+>
+    <div class="relative w-full h-64">
+        <img src={film.imgUrl} 
+             alt={`Affiche du film ${film.titre_film || "inconnu"}`} 
+             class="w-full h-full object-cover rounded-lg" 
+        />
+    </div>
+    <div class="mt-4">
+        <h3 class="text-2xl font-bold">{film.titre_film || "Titre inconnu"}</h3>
+        <p class="text-sm text-gray-400">🎬 Réalisé par : {film.realisateur || "Non précisé"}</p>
+        <p class="text-sm text-gray-400">📅 Sortie : {film.sortie || "Date inconnue"}</p>
+        <p class="text-sm text-gray-400">🎭 Genre : {film.genre ? film.genre.join(", ") : "Non précisé"}</p>
+        <p class="text-sm text-gray-400">⏳ Durée : {film.duree ? `${film.duree} min` : "Non précisée"}</p>
+    </div>
+</a>
+
+
+

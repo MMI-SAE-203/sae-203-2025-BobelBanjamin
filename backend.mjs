@@ -10,7 +10,7 @@ export async function allFilms() {
 
     films = films.map((film) => {
         if (film.affiche) {
-            film.imgUrl = pb.files.getURL(film, film.affiche); // ✅ Correction ici
+            film.imgUrl = pb.files.getURL(film, film.affiche); 
         }
         return film;
     });
@@ -26,9 +26,9 @@ export async function allActivites() {
 
     activites = activites.map((activite) => {
         if (activite.photo) {
-            activite.imgUrl = pb.files.getURL(activite, activite.photo); // ✅ Génère une URL correcte
+            activite.imgUrl = pb.files.getURL(activite, activite.photo); 
         } else {
-            activite.imgUrl = "/default-activity.png"; // Image par défaut si aucune photo
+            activite.imgUrl = "/default-activity.png"; 
         }
         return activite;
     });
@@ -36,18 +36,17 @@ export async function allActivites() {
     return activites;
 }
 
-
 /**
- * 📌 Retourne la liste de tous les acteurs / réalisateurs triés par ordre alphabétique
+ * 📌 Retourne la liste de tous les invités triés par ordre alphabétique
  */
 export async function allInvites() {
     let invites = await pb.collection('invite').getFullList({ sort: 'nom' });
 
     invites = invites.map((invite) => {
         if (invite.photo) {
-            invite.imgUrl = pb.files.getURL(invite, invite.photo); // ✅ Génère une URL correcte
+            invite.imgUrl = pb.files.getURL(invite, invite.photo); 
         } else {
-            invite.imgUrl = "/default-avatar.png"; // Image par défaut si aucune photo
+            invite.imgUrl = "/default-avatar.png"; 
         }
         return invite;
     });
@@ -55,14 +54,13 @@ export async function allInvites() {
     return invites;
 }
 
-
 /**
  * 📌 Retourne les infos d'un film en donnant son ID
  */
 export async function getFilm(id) {
     let film = await pb.collection('film').getOne(id);
     if (film.affiche) {
-        film.imgUrl = pb.files.getURL(film, film.affiche); // ✅ Correction ici
+        film.imgUrl = pb.files.getURL(film, film.affiche); 
     }
     return film;
 }
@@ -76,17 +74,17 @@ export async function getActivite(id) {
 }
 
 /**
- * 📌 Retourne les infos d'un acteur / réalisateur en donnant son ID
+ * 📌 Retourne les infos d'un invité en donnant son ID
  */
-export async function getParticipant(id) {
-    let participant = await pb.collection('invite').getOne(id);
-    return participant;
+export async function getInvite(id) {
+    let invite = await pb.collection('invite').getOne(id);
+    return invite;
 }
 
 /**
- * 📌 Retourne toutes les activités d’un animateur donné par son ID
+ * 📌 Retourne toutes les activités d’un invité donné par son ID
  */
-export async function getActivitesByAnimateurId(id) {
+export async function getActivitesByInviteId(id) {
     let activites = await pb.collection('activites').getFullList({
         filter: `invites.id="${id}"`
     });
@@ -95,15 +93,15 @@ export async function getActivitesByAnimateurId(id) {
 }
 
 /**
- * 📌 Retourne toutes les activités d’un animateur donné par son nom
+ * 📌 Retourne toutes les activités d’un invité donné par son nom
  */
-export async function getActivitesByAnimateurNom(nom) {
+export async function getActivitesByInviteNom(nom) {
     let invites = await pb.collection('invite').getFullList({
         filter: `nom="${nom}"`
     });
 
     if (invites.length === 0) {
-        throw new Error('Aucun animateur trouvé');
+        throw new Error('Aucun invité trouvé');
     }
 
     let activites = await pb.collection('activites').getFullList({
@@ -130,3 +128,5 @@ export async function updateItem(collection, id, data) {
 
     return result;
 }
+
+export { pb };

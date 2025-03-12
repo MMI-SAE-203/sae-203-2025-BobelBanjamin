@@ -5,6 +5,51 @@ import { Image } from 'astro:assets';
 import titre from "../../assets/img/programme.webp";
 import '../../styles/global.css';
 
+import ProgrammeCard from "../../components/procard.astro";
+
+const programme = [
+    {
+        date: "21 JANVIER",
+        color: "text-[#FF4E78]",
+        image: "../../assets/img/film1.webp",
+        events: [
+            { time: "9h", description: "Projection ‘Cars’ / Kineapolis, Belfort" },
+            { time: "11h", description: "Projection ‘Monster & CO’ / Kineapolis, Belfort" },
+            { time: "12h", description: "Projection ‘Vice-Versa’ / Kineapolis, Belfort" },
+            { time: "14h", description: "Projection ‘Planes’ / Kineapolis, Belfort" },
+            { time: "16h", description: "Projection ‘1001 Patte’ / Kineapolis, Belfort" },
+            { time: "19h", description: "Projection ‘Cars’ / Kineapolis, Belfort" },
+        ],
+    },
+    {
+        date: "22 JANVIER",
+        color: "text-[#306EF9]",
+        image: "/assets/image/jour2.webp",
+        events: [
+            { time: "9h", description: "Projection ‘Ratatouille’ / Kineapolis, Belfort" },
+            { time: "11h", description: "Projection ‘Toy Story’ / Kineapolis, Belfort" },
+            { time: "12h", description: "Projection ‘Le Roi Lion’ / Kineapolis, Belfort" },
+            { time: "14h", description: "Projection ‘Les Indestructibles’ / Kineapolis, Belfort" },
+            { time: "16h", description: "Projection ‘La Reine des Neiges’ / Kineapolis, Belfort" },
+            { time: "19h", description: "Projection ‘Mulan’ / Kineapolis, Belfort" },
+        ],
+    },
+    {
+        date: "23 JANVIER",
+        color: "text-[#A4CF00]",
+        image: "/assets/image/jour3.webp",
+        events: [
+            { time: "9h", description: "Projection ‘Zootopie’ / Kineapolis, Belfort" },
+            { time: "11h", description: "Projection ‘Les Aristochats’ / Kineapolis, Belfort" },
+            { time: "12h", description: "Projection ‘Wall-E’ / Kineapolis, Belfort" },
+            { time: "14h", description: "Projection ‘Coco’ / Kineapolis, Belfort" },
+            { time: "16h", description: "Projection ‘Là-haut’ / Kineapolis, Belfort" },
+            { time: "19h", description: "Projection ‘Aladdin’ / Kineapolis, Belfort" },
+        ],
+    },
+];
+
+
 ---
 
 <Layout>
@@ -35,5 +80,25 @@ import '../../styles/global.css';
             Découvrez le programme complet des 5 jours du Lionimation Festival. Chaque jour sera sur des thèmes differents
         </p>
     </div>
+
+    <section class="py-12 text-white">
+        <h1 class="text-center text-4xl font-bold mb-10">Programme du Festival</h1>
+    
+        <!-- Grille Responsive -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6 max-w-6xl mx-auto">
+            {programme.map((day) => (
+                <ProgrammeCard date={day.date} events={day.events} color={day.color} image={day.image} />
+            ))}
+        </div>
+    
+        <!-- Bouton de téléchargement -->
+        <div class="flex justify-center mt-10">
+            <a href="/path/to/your/document.pdf" download>
+                <button class="px-6 py-3 bg-gradient-to-r from-[#FF4E78] via-[#316FF9] to-[#306EF9] text-white font-bold rounded-full shadow-lg hover:scale-105 transition">
+                    Téléchargez le Programme
+                </button>
+            </a>
+        </div>
+    </section>
 
 </Layout>
