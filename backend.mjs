@@ -1,6 +1,6 @@
 import PocketBase from 'pocketbase';
 
-const pb = new PocketBase('https://sae203.banjamin-bobel.com/_/');
+const pb = new PocketBase('https://sae203.banjamin-bobel.com/');
 
 /**
  * 📌 Retourne la liste de tous les films triés par date de projection
