@@ -70,6 +70,11 @@ export async function getFilm(id) {
  */
 export async function getActivite(id) {
     let activite = await pb.collection('activites').getOne(id);
+    if (activite.photo) {
+        activite.imgUrl = pb.files.getURL(activite, activite.photo);  // ✅ Vérifie cette ligne !
+    } else {
+        activite.imgUrl = "/default-activity.png";  // ✅ Image par défaut si besoin
+    }
     return activite;
 }
 export async function getInvite(id) {

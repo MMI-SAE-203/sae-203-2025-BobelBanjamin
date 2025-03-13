@@ -15,6 +15,10 @@ const uniqueGenres = [...new Set(films.flatMap((film) => film.genre))];
 <Layout>
 
 
+<!-- ✅ Bouton pour ouvrir la modale -->
+<button id="openModal" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg">
+    ➕ Ajouter un Film
+</button>
 
 <section class="py-12 bg-[#190A35] text-white">
     <h1 class="text-center text-4xl font-bold mb-10">Tous les Films</h1>
@@ -42,60 +46,44 @@ const uniqueGenres = [...new Set(films.flatMap((film) => film.genre))];
     </div>
 </section>
 
-<section class="max-w-4xl mx-auto p-6 bg-[#312345] rounded-lg shadow-lg text-white mt-10">
-    <h1 class="text-3xl font-bold text-center mb-6">🎬 Ajouter un Film</h1>
 
-    <form id="filmForm" class="space-y-4">
-        <div>
-            <label class="block text-gray-300">Titre du film</label>
-            <input type="text" id="titre_film" required class="w-full p-2 rounded bg-gray-800 text-white" />
-        </div>
 
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label class="block text-gray-300">Date de sortie</label>
-                <input type="date" id="sortie" required class="w-full p-2 rounded bg-gray-800 text-white" />
+<!-- ✅ Modale cachée par défaut -->
+<div id="filmModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-[#312345] p-6 rounded-lg shadow-lg max-w-md w-full">
+        <h2 class="text-xl font-bold text-white text-center mb-4">🎬 Ajouter un Film</h2>
+
+        <!-- Formulaire d'ajout -->
+        <form id="filmForm" class="space-y-3">
+            <label class="text-white">Titre du film :</label>
+            <input type="text" id="titre_film" class="w-full p-2 rounded bg-gray-800 text-white" required />
+
+            <label class="text-white">Date de sortie :</label>
+            <input type="date" id="sortie" class="w-full p-2 rounded bg-gray-800 text-white" required />
+
+            <label class="text-white">Durée (min) :</label>
+            <input type="number" id="duree" class="w-full p-2 rounded bg-gray-800 text-white" required />
+
+            <label class="text-white">Réalisateur :</label>
+            <input type="text" id="realisateur" class="w-full p-2 rounded bg-gray-800 text-white" required />
+
+            <label class="text-white">Synopsis :</label>
+            <textarea id="synopsis" class="w-full p-2 rounded bg-gray-800 text-white" required></textarea>
+
+            <label class="text-white">Bande-Annonce (YouTube URL) :</label>
+            <input type="url" id="ba" class="w-full p-2 rounded bg-gray-800 text-white" />
+
+            <label class="text-white">Affiche du film :</label>
+            <input type="file" id="affiche" class="w-full p-2 bg-gray-800 text-white rounded" accept="image/*" />
+
+            <!-- Boutons -->
+            <div class="flex justify-between">
+                <button type="button" id="closeModal" class="px-4 py-2 bg-red-500 text-white font-bold rounded-lg">❌ Annuler</button>
+                <button type="submit" class="px-4 py-2 bg-green-500 text-white font-bold rounded-lg">✅ Ajouter</button>
             </div>
-            <div>
-                <label class="block text-gray-300">Réalisateur</label>
-                <input type="text" id="realisateur" required class="w-full p-2 rounded bg-gray-800 text-white" />
-            </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4">
-            <div>
-                <label class="block text-gray-300">Durée (min)</label>
-                <input type="number" id="duree" required class="w-full p-2 rounded bg-gray-800 text-white" />
-            </div>
-            <div>
-                <label class="block text-gray-300">Genre</label>
-                <input type="text" id="genre" required class="w-full p-2 rounded bg-gray-800 text-white" />
-            </div>
-        </div>
-
-        <div>
-            <label class="block text-gray-300">Synopsis</label>
-            <textarea id="synopsis" required class="w-full p-2 rounded bg-gray-800 text-white"></textarea>
-        </div>
-
-        <div>
-            <label class="block text-gray-300">Bande-Annonce (YouTube URL)</label>
-            <input type="text" id="ba" class="w-full p-2 rounded bg-gray-800 text-white" />
-        </div>
-
-        <div>
-            <label class="block text-gray-300">Affiche du film</label>
-            <input type="file" id="affiche" accept="image/*" class="w-full p-2 rounded bg-gray-800 text-white" />
-        </div>
-
-        <!-- ✅ Boutons -->
-        <div class="flex justify-between">
-            <button type="button" onclick="closeModal()" class="bg-gray-600 px-4 py-2 rounded-lg text-white">Annuler</button>
-            <button type="submit" class="bg-[#ff4e78] hover:bg-[#e03e68] px-4 py-2 rounded-lg text-white font-bold">Ajouter</button>
-        </div>
-    </form>
-</section>
-
+        </form>
+    </div>
+</div>
 
 <!-- JavaScript pour filtrer les films -->
 <script>
@@ -110,46 +98,66 @@ const uniqueGenres = [...new Set(films.flatMap((film) => film.genre))];
     });
 
 
-    document.getElementById("filmForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
+    function validateForm(data) {
+    if (!data.titre_film || data.titre_film.length < 2) {
+        alert("❌ Le titre du film est trop court !");
+        return false;
+    }
+
+    if (!data.sortie.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        alert("❌ Format de la date incorrect (ex : 2025-02-14)");
+        return false;
+    }
+
+    if (isNaN(data.duree) || data.duree <= 0) {
+        alert("❌ La durée doit être un nombre valide !");
+        return false;
+    }
+
+    if (data.ba && !data.ba.match(/^https:\/\/www\.youtube\.com\/watch\?v=.+/)) {
+        alert("❌ Lien YouTube invalide !");
+        return false;
+    }
+
+    return true; // ✅ Tout est bon !
+}
+
+document.getElementById("openModal").addEventListener("click", () => {
+    document.getElementById("filmModal").classList.remove("hidden");
+});
+
+document.getElementById("closeModal").addEventListener("click", () => {
+    document.getElementById("filmModal").classList.add("hidden");
+});
+
+document.getElementById("filmForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
     const formData = new FormData();
     formData.append("titre_film", document.getElementById("titre_film").value);
     formData.append("sortie", document.getElementById("sortie").value);
-    formData.append("realisateur", document.getElementById("realisateur").value);
     formData.append("duree", document.getElementById("duree").value);
-    formData.append("genre", document.getElementById("genre").value);
+    formData.append("realisateur", document.getElementById("realisateur").value);
     formData.append("synopsis", document.getElementById("synopsis").value);
     formData.append("ba", document.getElementById("ba").value);
-
-    const affiche = document.getElementById("affiche").files[0];
-    if (affiche) {
-        formData.append("affiche", affiche);
-    }
-
-    // ✅ Vérification avant l’envoi
-    console.log("🔍 Données envoyées :", Object.fromEntries(formData.entries()));
+    formData.append("affiche", document.getElementById("affiche").files[0]);
 
     try {
-        const response = await fetch("/api/addFilm", {
+        const response = await fetch("/api/ajouter-film", {
             method: "POST",
-            body: formData,
+            body: formData
         });
 
-        const result = await response.json();
-        console.log("📌 Réponse serveur :", result);
+        if (!response.ok) throw new Error("Erreur lors de l'ajout du film");
 
-        if (response.ok) {
-            alert("🎬 Film ajouté avec succès !");
-            location.reload();
-        } else {
-            throw new Error(result.error || "Erreur lors de l'ajout du film");
-        }
+        alert("✅ Film ajouté avec succès !");
+        document.getElementById("filmModal").classList.add("hidden");
     } catch (error) {
-        console.error("❌ Erreur :", error);
-        alert("❌ Erreur : " + error.message);
+        console.error(error);
+        alert(error.message);
     }
 });
+
 
 </script>
 </Layout>
