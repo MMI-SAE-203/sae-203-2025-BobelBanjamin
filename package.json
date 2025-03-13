@@ -12,6 +12,7 @@
     "@astrojs/netlify": "^6.2.3",
     "@tailwindcss/vite": "^4.0.12",
     "astro": "^5.4.2",
+    "netlify-cli": "^19.0.2",
     "pocketbase": "^0.25.2",
     "react": "^19.0.0",
     "solid": "^0.2.1",
