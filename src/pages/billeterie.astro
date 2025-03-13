@@ -1,0 +1,74 @@
+---
+const ticketsJour = [
+  { jour: "21", prix: "10€", couleur: "bg-[#ff4e78]" },
+  { jour: "22", prix: "10€", couleur: "bg-[#306ef9]" },
+  { jour: "23", prix: "10€", couleur: "bg-[#a3cf00]" },
+  { jour: "24", prix: "10€", couleur: "bg-[#ff4e78]" },
+  { jour: "25", prix: "10€", couleur: "bg-[#306ef9]" },
+];
+
+const ticketsSemaine = [
+  {
+    type: "ADULT",
+    prix: "40€",
+    couleur: "bg-gradient-to-r from-[#ff4e78] via-[#306ef9] to-[#a3cf00]",
+  },
+  {
+    type: "ENFANT",
+    prix: "20€",
+    couleur: "bg-gradient-to-r from-[#ff4e78] via-[#306ef9] to-[#a3cf00]",
+  },
+];
+
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+<section class="bg-[#190A35] text-white py-12">
+  <h1 class="text-center text-4xl font-bold">Billets Journée</h1>
+  
+  <div class="flex flex-wrap justify-center gap-6 mt-8">
+    {ticketsJour.map((ticket) => (
+      <div class="bg-[#312345] p-6 rounded-lg w-[300px] text-center shadow-lg">
+        <h2 class="text-xl font-bold">BILLET 1 JOUR</h2>
+        <div class="flex justify-center gap-2 mt-3">
+          <span class={`text-white px-3 py-1 rounded-full ${ticket.couleur}`}>
+            {ticket.jour}
+          </span>
+        </div>
+        <button class={`w-full mt-4 py-3 text-lg font-bold rounded-lg text-white ${ticket.couleur}`}>
+          Acheter Ticket - {ticket.prix}
+        </button>
+        <p class="mt-4 flex items-center justify-center text-sm">
+          📍 Belfort, FRANCHE-COMTÉ
+        </p>
+      </div>
+    ))}
+  </div>
+
+  <h1 class="text-center text-4xl font-bold mt-16">Billets Semaine</h1>
+
+  <div class="flex flex-wrap justify-center gap-6 mt-8">
+    {ticketsSemaine.map((ticket) => (
+      <div class="bg-[#312345] p-6 rounded-lg w-[350px] text-center shadow-lg">
+        <h2 class="text-xl font-bold">BILLET SEMAINE {ticket.type}</h2>
+        <div class="flex justify-center gap-2 mt-3">
+          <span class="bg-[#ff4e78] text-white px-3 py-1 rounded-full">21</span>
+          <span class="bg-[#306ef9] text-white px-3 py-1 rounded-full">22</span>
+          <span class="bg-[#a3cf00] text-white px-3 py-1 rounded-full">23</span>
+          <span class="bg-[#ff4e78] text-white px-3 py-1 rounded-full">24</span>
+          <span class="bg-[#306ef9] text-white px-3 py-1 rounded-full">25</span>
+        </div>
+        <button class={`w-full mt-4 py-3 text-lg font-bold rounded-lg text-white ${ticket.couleur}`}>
+          Acheter Ticket - {ticket.prix}
+        </button>
+        <p class="mt-4 flex items-center justify-center text-sm">
+          📍 Belfort, FRANCHE-COMTÉ
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+</Layout>
+
+

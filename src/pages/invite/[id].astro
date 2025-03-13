@@ -1,29 +1,47 @@
 ---
-import { getParticipant } from "../../../backend.mjs"; // Récupération d’un invité
+import { getActivite } from "../../../backend.mjs";
 import Layout from '../../layouts/Layout.astro';
 
 const { id } = Astro.params;
-const invite = await getParticipant(id);
+const activite = await getActivite(id) ?? {}; // 🔹 Assure que `activite` est toujours un objet
 ---
 
 <Layout>
-<section class="max-w-6xl mx-auto p-6 bg-[#312345] rounded-lg shadow-lg text-white">
-    <h1 class="text-3xl font-bold text-center mb-6">{invite.nom}</h1>
+<section class="max-w-6xl mx-auto p-8 bg-[#1E1B3A] rounded-lg shadow-lg text-white mt-10">
+    
+    <!-- ✅ Vérification si l'activité existe -->
+    {activite && activite.nom ? (
+        <>
+            <!-- ✅ Titre -->
+            <h1 class="text-4xl font-bold text-center mb-8 text-[#FF4E78]">{activite.nom}</h1>
 
-    <!-- ✅ Section principale en grille : Photo à gauche / Infos à droite -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- 📸 Photo de l'invité (Gauche) -->
-        <div class="flex flex-col items-center md:items-start">
-            <img class="w-full max-w-xs md:max-w-sm rounded-lg shadow-md" 
-                 src={invite.imgUrl} 
-                 alt={`Photo de ${invite.nom}`} />
-        </div>
+            <!-- ✅ Grille principale -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                
+                <!-- 📸 Image de l'activité -->
+                <div class="flex flex-col items-center md:items-start">
+                    <img class="w-full max-w-md rounded-lg shadow-md border-2 border-[#FF4E78]" 
+                         src={activite.imgUrl ?? "/default-activity.png"} 
+                         alt={`Image de ${activite.nom}`} />
+                </div>
 
-        <!-- 🎭 Infos sur l'invité (Droite) -->
-        <div class="text-left space-y-2">
-            <p class="text-gray-300"><strong>🎭 Rôle :</strong> {invite.role || "Non précisé"}</p>
-            <p class="text-gray-300"><strong>📅 Année de naissance :</strong> {invite.annee_naissance || "Non renseignée"}</p>
-            <p class="text-gray-300"><strong>🏆 Récompenses :</strong> {invite.recompenses || "Aucune"}</p>
-        </div>
-    </div
+                <!-- 📝 Infos de l'Activité -->
+                <div class="space-y-4">
+                    <p class="text-gray-300 text-lg"><strong>📅 Date :</strong> {activite.date_act ?? "Non précisé"}</p>
+                    <p class="text-gray-300 text-lg"><strong>📍 Lieu :</strong> {activite.lieu ?? "Non précisé"}</p>
+                    <p class="text-gray-300 text-lg"><strong>⏳ Durée :</strong> {activite.duree ?? "Non précisée"} min</p>
+                    <p class="text-gray-300 text-lg"><strong>🎟 Accès :</strong> {activite.acces ?? "Non spécifié"}</p>
+                </div>
+            </div>
+
+            <!-- 📝 Description complète -->
+            <section class="mt-10">
+                <h2 class="text-2xl font-semibold text-[#A3CF00]">📝 Description</h2>
+                <p class="text-gray-300 text-lg mt-3 leading-relaxed">{activite.description ?? "Aucune description disponible."}</p>
+            </section>
+        </>
+    ) : (
+        <p class="text-red-500 text-center text-xl font-semibold">❌ Activité introuvable.</p>
+    )}
+</section>
+</Layout>

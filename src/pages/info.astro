@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import titre from "../assets/img/apropos.webp";
+
+---
+
+<Layout>
+
+    <div class="relative text-center">
+        <!-- Logo -->
+        <Image src={titre} alt="titre" class="mx-auto" style="max-width"></Image>
+
+        <!-- Bloc "Ne Pas Ratez" -->
+        <div class="mt-10 bg-[#312345] p-6 rounded-xl max-w-2xl mx-auto relative">
+            <span class="bg-pink-500 text-white px-4 py-2 rounded-lg font-bold absolute -top-5 left-6">
+                A PROPOS
+            </span>
+            <p class="text-lg mt-6 text-white">
+                Vous pouvez retrouver toute les informations a propos du FESTIVAL LIONIMATION
+            </p>
+        </div>
+    </div>
+
+
+  <section class="bg-[#] min-h-screen flex flex-col items-center px-6 py-12">
+    <!-- ✅ Accordéon -->
+    <div class="w-full max-w-md space-y-4">
+      {[
+        { id: "info", title: "INFORMATION", color: "text-white", content: "Retrouvez toutes les informations sur les Tarifs, Lieux, Hébergement, Transport, FAQ." },
+        { id: "tarifs", title: "Tarifs", color: "text-[#306ef9]", content: "1 Jour -> 10€ <br> Semaine -> 40€ <br> Enfant Semaine -> 20€" },
+        { id: "lieux", title: "Lieux", color: "text-[#a3cf00]", content: "Kineapolis, Belfort <br> Autres lieux..." },
+        { id: "hebergement", title: "Hébergement", color: "text-[#a3cf00]", content: "Hôtels, Auberges, Locations..." },
+        { id: "transport", title: "Transport", color: "text-[#306ef9]", content: "Bus, Train, Taxi..." },
+        { id: "faq", title: "FAQ", color: "text-[#ff4e78]", content: "<strong>Question ?</strong><br> Réponse<br><strong>Question ?</strong><br> Réponse" }
+      ].map(({ id, title, color, content }) => (
+        <div class="bg-[#312345] rounded-lg p-4">
+          <button class={`w-full flex justify-between items-center font-bold py-2 ${color}`} data-accordion-button={id}>
+            <span>{title}</span>
+            <span class="accordion-icon transition-transform">➕</span>
+          </button>
+          <div class="hidden text-gray-300 mt-2" data-accordion-content={id} innerHTML={content}></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ✅ Script pour l'accordéon -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll("[data-accordion-button]").forEach(button => {
+        button.addEventListener("click", () => {
+          const contentId = button.getAttribute("data-accordion-button");
+          const content = document.querySelector(`[data-accordion-content="${contentId}"]`);
+          const icon = button.querySelector(".accordion-icon");
+
+          if (content.classList.contains("hidden")) {
+            content.classList.remove("hidden");
+            content.classList.add("block");
+            icon.textContent = "➖"; // Ouvre
+          } else {
+            content.classList.add("hidden");
+            content.classList.remove("block");
+            icon.textContent = "➕"; // Ferme
+          }
+        });
+      });
+    });
+  </script>
+</Layout>

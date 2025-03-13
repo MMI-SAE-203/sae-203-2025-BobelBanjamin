@@ -1,0 +1,13 @@
+---
+const { id, nom, date_act, lieu, imgUrl, description } = Astro.props;
+---
+
+<a href={`/activite/${id}`} class="block bg-[#312345] p-4 rounded-lg shadow-lg hover:bg-[#41436A] transition">
+    <img class="w-full h-40 object-cover rounded-md border-2 border-[#FF4E78]" 
+         src={imgUrl ? imgUrl : "/default-activity.png"} 
+         alt={`Image de ${nom}`} />
+    <h3 class="text-lg font-bold text-[#FF4E78] mt-2">{nom}</h3>
+    <p class="text-gray-300"><strong>📅 Date :</strong> {date_act ?? "Non précisé"}</p>
+    <p class="text-gray-300"><strong>📍 Lieu :</strong> {lieu ?? "Non précisé"}</p>
+    <p class="text-gray-400 mt-2">{description ? description.substring(0, 100) + "..." : "Aucune description"}</p>
+</a>

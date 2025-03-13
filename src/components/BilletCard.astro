@@ -1,0 +1,39 @@
+---
+const { titre, prix, ville, jours } = Astro.props;
+---
+
+<div class="bg-[#312345] p-6 rounded-xl shadow-lg text-white w-full max-w-md mx-auto relative">
+    
+    <!-- 🎟️ Titre du billet -->
+    <h2 class="text-lg font-extrabold text-center uppercase tracking-wide mb-4">
+        {titre}
+    </h2>
+
+    <!-- 🟢 Jours (Affichage dynamique) -->
+    <div class="flex justify-center items-center gap-2 mb-3">
+        {jours.map((jour) => (
+            <span class="px-3 py-1 text-sm font-bold text-white rounded-full"
+                style={`background-color: ${jour.color};`}>
+                {jour.date}
+            </span>
+        ))}
+    </div>
+
+    <!-- 🎫 Bouton d'achat -->
+    <button class="w-full text-white font-bold py-3 rounded-lg transition-transform hover:scale-105
+                   bg-gradient-to-r from-[#ff4e78] via-[#306ef9] to-[#a3cf00]">
+        Acheter Ticket - {prix}€
+    </button>
+
+    <!-- 📍 Localisation + Icône partage -->
+    <div class="flex justify-between items-center mt-6 text-gray-300">
+        <div class="flex items-center gap-2">
+            <span class="text-lg">📍</span>
+            <p class="text-sm">{ville}</p>
+        </div>
+        <button class="hover:text-white transition">
+            ⬆️
+        </button>
+    </div>
+</div>
+

@@ -1,0 +1,105 @@
+---
+import { addFilm } from "../../backend.mjs";
+import { useState } from "react";
+import Layout from '../layouts/Layout.astro';
+
+const [filmData, setFilmData] = useState({
+    titre_film: "",
+    sortie: "",
+    realisateur: "",
+    duree: "",
+    genre: "",
+    synopsis: "",
+    affiche: null, // Image
+    ba: ""
+});
+
+// Fonction pour gérer le changement des inputs
+const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFilmData((prev) => ({ ...prev, [name]: value }));
+};
+
+// Fonction pour gérer l'upload d'image
+const handleFileChange = (event) => {
+    setFilmData((prev) => ({ ...prev, affiche: event.target.files[0] }));
+};
+
+// Fonction pour soumettre le formulaire
+const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("titre_film", filmData.titre_film);
+    formData.append("sortie", filmData.sortie);
+    formData.append("realisateur", filmData.realisateur);
+    formData.append("duree", filmData.duree);
+    formData.append("genre", filmData.genre);
+    formData.append("synopsis", filmData.synopsis);
+    formData.append("ba", filmData.ba);
+    
+    if (filmData.affiche) {
+        formData.append("affiche", filmData.affiche);
+    }
+
+    try {
+        await addFilm(formData);
+        alert("🎬 Film ajouté avec succès !");
+        location.reload();
+    } catch (error) {
+        alert("❌ Erreur lors de l'ajout du film !");
+    }
+};
+---
+
+<Layout>
+<section class="max-w-4xl mx-auto p-6 bg-[#312345] rounded-lg shadow-lg text-white mt-10">
+    <h1 class="text-3xl font-bold text-center mb-6">🎬 Ajouter un Film</h1>
+
+    <form class="space-y-4" onSubmit={handleSubmit}>
+        <div>
+            <label class="block text-gray-300">Titre du film</label>
+            <input type="text" name="titre_film" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-gray-300">Date de sortie</label>
+                <input type="date" name="sortie" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+            </div>
+            <div>
+                <label class="block text-gray-300">Réalisateur</label>
+                <input type="text" name="realisateur" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <label class="block text-gray-300">Durée (en minutes)</label>
+                <input type="number" name="duree" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+            </div>
+            <div>
+                <label class="block text-gray-300">Genre</label>
+                <input type="text" name="genre" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-gray-300">Synopsis</label>
+            <textarea name="synopsis" required class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange}></textarea>
+        </div>
+
+        <div>
+            <label class="block text-gray-300">Bande-Annonce (YouTube URL)</label>
+            <input type="text" name="ba" class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleChange} />
+        </div>
+
+        <div>
+            <label class="block text-gray-300">Affiche du film</label>
+            <input type="file" name="affiche" accept="image/*" class="w-full p-2 rounded bg-gray-800 text-white" onChange={handleFileChange} />
+        </div>
+
+        <button type="submit" class="w-full bg-[#ff4e78] hover:bg-[#e03e68] text-white py-2 rounded-lg font-bold">Ajouter le Film</button>
+    </form>
+</section>
+</Layout>

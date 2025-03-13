@@ -72,14 +72,29 @@ export async function getActivite(id) {
     let activite = await pb.collection('activites').getOne(id);
     return activite;
 }
-
-/**
- * 📌 Retourne les infos d'un invité en donnant son ID
- */
 export async function getInvite(id) {
-    let invite = await pb.collection('invite').getOne(id);
+    let invite = await pb.collection('invite').getOne(id, { expand: "activites,films" });
+
+    console.log("🔍 Invite récupéré depuis PocketBase:", invite);
+
+    // ✅ Vérifie si les activités sont bien récupérées
+    invite.activites = invite.expand?.activites || [];
+    console.log("📌 Activités trouvées :", invite.activites);
+
+    // ✅ Vérifie si les films sont bien récupérés
+    invite.films = invite.expand?.films || [];
+    console.log("🎬 Films trouvés :", invite.films);
+
+    // Génération de l'URL de l'image
+    invite.imgUrl = invite.photo 
+        ? pb.files.getURL(invite, invite.photo) 
+        : "/default-avatar.png";
+
     return invite;
 }
+
+
+
 
 /**
  * 📌 Retourne toutes les activités d’un invité donné par son ID
@@ -130,3 +145,14 @@ export async function updateItem(collection, id, data) {
 }
 
 export { pb };
+
+export async function addFilm(data) {
+    try {
+        const result = await pb.collection("film").create(data);
+        console.log("✅ Film ajouté :", result);
+        return result;
+    } catch (error) {
+        console.error("❌ Erreur lors de l'ajout du film :", error);
+        throw error;
+    }
+}
